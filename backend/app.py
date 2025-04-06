@@ -29,11 +29,16 @@ def signup():
     email = info.get("email")
     password = info.get('password')
 
-    user_data = load_users()
+    user_info = load_users()
 
-    if username in user_data:
+    if username in user_info:
         return jsonify({"message": "Already in system"})
     else:
+        user_info[username] = {
+            "email":email,
+            "password": password
+        }
+        save_users(user_info)
         return jsonify({"message": "Succesful!"})
 
 
